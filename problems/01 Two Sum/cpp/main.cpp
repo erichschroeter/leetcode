@@ -57,12 +57,12 @@ public:
         if (nums.size() < 2) {
             throw runtime_error("need at least 2 input nums");
         }
-        quick_sort(nums);
-        // cout << "twoSum: " << nums << endl;
         vector<int> indices;
+        cout << "INPUT: " << nums << endl;
         for (int i = 0; i < nums.size(); ++i) {
-            for (int j = 0; j < nums.size() - 1; ++j) {
+            for (int j = 1; j < nums.size(); ++j) {
                 int sum = nums[i] + nums[j];
+                cout << i << " + " << j << " = " << sum << endl;
                 if (sum == target) {
                     indices.push_back(i);
                     indices.push_back(j);
@@ -88,7 +88,7 @@ int main() {
     vector<int> example_2_nums({3,2,4});
     int example_2_expected = 6;
     auto result_2 = solution.twoSum(example_2_nums, example_2_expected);
-    if (result_2.size() == 2 && (example_2_nums[result_2[0]] + example_2_nums[result_2[1]]) == example_2_expected) {
+    if (result_2.size() == 2 && result_2[0] == 1 && result_2[1] == 2) {
         cout << "Example 2: PASS" << endl;
     } else {
         if (result_2.size() > 1) {
@@ -101,7 +101,7 @@ int main() {
     vector<int> example_3_nums({3,3});
     int example_3_expected = 6;
     auto result_3 = solution.twoSum(example_3_nums, example_3_expected);
-    if (result_3.size() == 2 && (example_3_nums[result_3[0]] + example_3_nums[result_3[1]]) == example_3_expected) {
+    if (result_3.size() == 2 && result_3[0] == 0 && result_3[1] == 1) {
         cout << "Example 3: PASS" << endl;
     } else {
         if (result_3.size() > 1) {
