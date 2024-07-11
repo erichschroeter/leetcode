@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -27,6 +28,13 @@ string to_string(ListNode* n) {
     return output;
 }
 
+struct Node {
+    ListNode *prev;
+    ListNode *next;
+    Node() : prev(nullptr), next(nullptr) {}
+    Node(ListNode *prev, ListNode *next) : prev(prev), next(next) {}
+};
+
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -40,7 +48,27 @@ string to_string(ListNode* n) {
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        return head;
+        if (nullptr == head) {
+            return head;
+        }
+        ListNode * cur = head;
+        vector<ListNode*> ordered;
+        while (cur != nullptr) {
+            ordered.push_back(cur);
+            cur = cur->next;
+        }
+        int i = 0;
+        vector<ListNode*>::iterator iter = ordered.end();
+        for (int i = ordered.size()-1; i != -1; --i) {
+            if (i > 0) {
+                ordered[i]->next = ordered[i-1];
+                // cout << "  " << to_string(ordered[i]->val) << " to " << to_string(ordered[i-1]->val) << endl;
+            } else {
+                // cout << "  " << to_string(ordered[i]->val) << " to null" << endl;
+                ordered[i]->next = nullptr;
+            }
+        }
+        return ordered[ordered.size()-1];
     }
 };
 
@@ -63,18 +91,18 @@ int main() {
     auto r2 = sol.reverseList(&ex2);
     // cout << "r2: " << to_string(r2) << endl;
     if (r2->val == 2 && r2->next->val == 1) {
-        cout << "Example 3: PASS" << endl;
+        cout << "Example 2: PASS" << endl;
     } else {
-        cout << "Example 3: FAIL    " << to_string(r2) << " expected [2,1]" << endl;
+        cout << "Example 2: FAIL    " << to_string(r2) << " expected [2,1]" << endl;
     }
 
     ListNode ex3(0);
     auto r3 = sol.reverseList(&ex3);
     // cout << "r3: " << to_string(r3) << endl;
     if (r3->val == 0) {
-        cout << "Example 2: PASS" << endl;
+        cout << "Example 3: PASS" << endl;
     } else {
-        cout << "Example 2: FAIL    " << to_string(r3) << " expected [0]" << endl;
+        cout << "Example 3: FAIL    " << to_string(r3) << " expected [0]" << endl;
     }
     return 0;
 }
