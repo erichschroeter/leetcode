@@ -7,5 +7,5 @@ int ModbusRTU::read() {
 }
 
 int ModbusRTU::write(int data) {
-    return 0;
+    return 1;
 }

@@ -15,6 +15,8 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
+enable_testing()
+
 add_library(ModbusRTU
   ModbusRTU.cpp)
 
@@ -23,3 +25,7 @@ add_executable(ModbusRTU_tests
 target_link_libraries(ModbusRTU_tests
   ModbusRTU
   GTest::gtest_main)
+
+
+include(GoogleTest)
+gtest_discover_tests(ModbusRTU_tests)
